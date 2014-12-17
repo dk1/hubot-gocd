@@ -41,7 +41,7 @@ ROOM = process.env.HUBOT_GO_STATUS_ROOM
 GO_SERVER = process.env.HUBOT_GO_SERVER_HOST
 GO_USERNAME = process.env.HUBOT_GO_SERVER_USERNAME
 GO_PASSWORD = process.env.HUBOT_GO_SERVER_PASSWORD
-GO_FEED_ENDPOINT = "http://#{GO_USERNAME}:#{GO_PASSWORD}@#{GO_SERVER}/go/api/pipelines/%s/stages.xml"
+GO_FEED_ENDPOINT = "https://#{GO_USERNAME}:#{GO_PASSWORD}@#{GO_SERVER}/go/api/pipelines/%s/stages.xml"
 PIPELINES = JSON.parse(fs.readFileSync('go-pipelines.json', 'utf8'))
 
 Robot = {}
@@ -82,7 +82,7 @@ fetch = (pipeline) ->
   req = request(link)
   feedparser = req.pipe(new FeedParser())
     .on('error', (error) ->
-      console.log "error: #{error}"
+      console.log "gocd error: #{error} while requesting #{link}"
     )
     .on('readable', () ->
       stream = this
